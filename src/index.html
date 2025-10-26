@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application -MVC + CRUD</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!--Top Header of the application-->
+    <main class="chat-interface">
+        <header class="chat-header">
+          <div class="header-left">
+            <h1>Chat Application</h1>
+            <p>MVC Architecture with CRUD Operations</p>
+          </div>
+          <div class="header-right">
+            <span id="messageCount" class="message-count">0 Messages</span>
+          </div>
+          </header>
+<!--Tool bar where the import,export, and clear all will be -->
+  <div class="toolbar">
+    <button id="exportChat" class="btn">Export Chat</button>
+        <label class="btn import-label" title="Import JSON">
+    
+            <input id="importFile" type="file"  accept="application/Json" hidden>
+            Import Chat 
+        </label>
+          <button id="clearChat" class="btn danger">Clear All</button>
+    </div>
+<!--Message Area-->
+     <section class="messages" aria-label="Chat history">
+      <ul id="messageList" class="message-list"></ul>
+      <div id="emptyState" class="empty">
+        <p>Hi, ready to chat!</p>
+      </div>
+    </section>
+
+    <form id="messageForm" class="input" autocomplete="off">
+      <input id="messageInput" name="text" type="text" placeholder="Type your message…" required />
+      <button type="submit" class="btn primary">Send</button>
+    </form>
+<!--Footer containing "last saved" data-->
+      <footer class="info">
+      <span id="lastSaved">—</span>
+    </footer>
+  </main>
+<!--Template to be used by the View for messages-->
+  <template id="messageTemplate">
+    <li class="message" data-message-id="">
+      
+      <div class="message-bot">
+        <div class="bubble">
+          <div class="bubble-row">
+            <span class="sender"></span>
+            <time class="timestamp" datetime=""></time>
+          </div>
+          <p class="text"></p>
+          <div class="actions"></div> 
+        </div>
+      </div>
+    </li>
+  </template>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

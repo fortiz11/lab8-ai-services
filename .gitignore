@@ -1,0 +1,49 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build / cache / dist
+dist/
+build/
+.cache/
+coverage/
+.vscode/
+.DS_Store
+
+# Playwright / test artifacts
+test-results/
+playwright-report/
+blob-report/
+trace.zip
+*.zip
+
+# Environment / API keys
+.env
+*.env
+.env.*
+apiKey.txt
+key.txt
+
+# Local data or caches
+*.log
+*.tmp
+*.swp
+*.bak
+*.local
+*.lock
+
+# OS / editor cruft
+Thumbs.db
+.idea/
+*.iml
+
+# Compiled files
+*.tsbuildinfo
+*.map
+
+# Optional: localStorage backups or JSON mocks
+mock-data.json
+storage/
