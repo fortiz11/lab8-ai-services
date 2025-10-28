@@ -42,5 +42,18 @@ export class OpenAIService extends AiPort {
         temperature: 0.7,
       }),
     });
+
+
+
+//This checks if the request went through, if not it throws an error
+    if (!res.ok){
+      //reads the body of the failed response 
+      const errText= await res.text();
+      throw new Error(`OpenAI error: ${res.status} ${errText} `);
+    }
+
+    //parses our response from our API
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content?.trim()??'';
   }
 }
