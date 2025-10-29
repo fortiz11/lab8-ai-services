@@ -2,10 +2,20 @@
 //   1. Handle user input
 //   2. Coordinate Model updates
 //   3. Trigger View rendering actions
+
+import {createService} from './services/ServiceFactory.js'
+
+
+
 export class ChatController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    //Initialization of the provider and service (new to lab 8)
+    this.provider = localStorage.getItem('provider') || 'eliza';
+    this.service = createService(this.provider, { openaiKey:
+      localStorage.getItem('openaiKey'), 
+    });
 
     // Bind handlers to maintain correct 'this' context when passed as callbacks
     this.handleSend = this.handleSend.bind(this);
@@ -64,25 +74,30 @@ export class ChatController {
   //     - Generates and adds bot response
   //     - Clears the input field
 
-  handleSend(e) {
-    e.preventDefault();
-    const text = this.view.inputEl.value.trim();
-    if (!text) return;
-
-    // Create a user message
-    const userMsg = this.model.createMessage(text, true);
-
-    // Create bot response via Eliza logic
-    const reply = window.eliza ? window.eliza.respond(text) : "I'm listening.";
-    this.model.createMessage(reply, false);
-
-    // Clear the input field
-    this.view.inputEl.value = "";
+  async handleSend(e) {
+  e.preventDefault();
+  const text = this.view.inputEl.value.trim();
+  if (!text){
+    return;
   }
 
-  //     Handles message editing.
-  //     Prompts user for new text
-  //     Updates the message text in the Model
+  this.model.createMessage(text, true);
+
+  try {
+    const reply = await this.service.generate([{role: 'user', content: text}]);
+    
+
+
+    this.model.createMessage(reply, false);
+
+  }
+  catch (err){
+    const msg = (err && err.message)? err.message : String (err);
+    this.model.createMessage(`${msg}`, false);
+  }
+
+  this.view.inputEl.value='';
+}
 
   handleEdit(id) {
     const msg = this.model.messages.find((m) => m.id === id);
@@ -136,16 +151,18 @@ export class ChatController {
   const file = e?.target?.files?.[0];
   if (!file) return;
 
-  const text = await file.text();
+  
   try {
+    const text = await file.text();
     const importedMessages = JSON.parse(text);
     this.model.replaceAll(importedMessages);
   } catch (err) {
     alert("Import failed: Invalid JSON file.");
-  
-
-      // clear the input so re-importing same file later still fires change
-      e.target.value = '';
-    };
+      
+    }finally{
+      if (e?.target){
+        e.target.value='';
+      }
+    }
   }
 }
