@@ -29,7 +29,7 @@ export class OpenAIService extends AiPort {
   async generate(messages) {
     if (!this.apiKey) throw new Error("Missing OpenAi API key");
 
-    const res = await fetch("https://api.openai.com/va/chat/completions", {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
