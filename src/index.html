@@ -18,6 +18,24 @@
             <span id="messageCount" class="message-count">0 Messages</span>
           </div>
           </header>
+    <!--Drop down window for provider selection-->
+    <section class="settings" style="display: flex; gap: 1rem;
+    flex-wrap: wrap; align-items: center;">
+    <label>
+      Provider:
+      <select id="providerSelect">
+        <option value="eliza">Eliza </option>
+        <option value="'openai">OpenAI</option>
+        <option value="mock">Mock (tests)</option>
+      </select>
+    </label>
+
+    <label>
+      OpenAI key:
+      <input id = 'openaiKeyInput' type="password" placeholder="sk.."/>
+      <button id="saveOpenAIKeyBtn" type="button">Save</button>
+    </label>
+    </section>
 <!--Tool bar where the import,export, and clear all will be -->
   <div class="toolbar">
     <button id="exportChat" class="btn">Export Chat</button>

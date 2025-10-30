@@ -19,13 +19,18 @@ export class ElizaService extends AiPort {
 
     async generate (message) {
         // copy of the message using spread syntax 
-        const lastUser= {...message}
-        //so that the newest message appears first 
-        .reverse()
-        //finds the latest user message 
-        .find(m=> m.role==='user')?.content??'';
+        let lastUser = '';
+        for (let i =message.length -1; i>=0; i--){
+            const m = message [i];
+            if (m && m.role ==='user'){
+                lastUser = String(m.content || '').trim();
+                break;
+            }
+        }
 
-        if(/hello|hi/i.test(lastUser)) return "Eliza: Hello. How does that make you feel?";
+        if (!lastUser) return 'Tell me more.';
+
+        if(/hello|hi/i.test(lastUser)) return "Eliza: Hello! Whats on your mind";
         if (/bye|goodbye/i.test(lastUser)) return "Eliza: Goodbye. It was nice chatting. ";
 
         return `Eliza: You said, "${lastUser}". Tell me more`;
