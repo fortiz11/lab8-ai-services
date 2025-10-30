@@ -2,7 +2,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: 'tests',
+  testDir: 'test',
   use: {
     headless: true,                 // set to false to watch the browser
     viewport: { width: 1200, height: 800 },

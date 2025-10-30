@@ -28,7 +28,7 @@ const view = new ChatView({
 const controller = new ChatController(model, view);
 window.controller = controller; // expose for console debugging
 
-// ---- Provider dropdown wiring ----
+
 const providerSelect = document.getElementById('providerSelect');
 if (providerSelect) {
   // SANITIZE the stored provider to avoid stray quotes/case issues
@@ -42,12 +42,12 @@ if (providerSelect) {
 
   providerSelect.addEventListener('change', (e) => {
     const name = String(e.target.value).trim().toLowerCase();
-    controller.setProvider(name);           // rebuild service
-    localStorage.setItem('provider', name); // persist selection
+    controller.setProvider(name);           
+    localStorage.setItem('provider', name); 
   });
 }
 
-// ---- OpenAI key save wiring ----
+
 const openaiKeyInput = document.getElementById('openaiKeyInput');
 const saveOpenAIKeyBtn = document.getElementById('saveOpenAIKeyBtn');
 
