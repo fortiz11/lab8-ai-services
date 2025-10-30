@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/fortiz11/lab8-ai-services#readme",
   "devDependencies": {
-    "@playwright/test": "^1.56.1"
+    "@playwright/test": "^1.56.1",
+    "http-server": "^14.1.1"
   }
 }

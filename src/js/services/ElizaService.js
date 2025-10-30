@@ -18,6 +18,9 @@ export class ElizaService extends AiPort {
      */
 
     async generate (message) {
+        // small async pause to better emulate networked providers and
+        // allow UI tests to observe the intermediate user bubble.
+        await new Promise((r) => setTimeout(r, 150));
         // copy of the message using spread syntax 
         let lastUser = '';
         for (let i =message.length -1; i>=0; i--){

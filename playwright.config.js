@@ -1,4 +1,4 @@
-// playwright.config.js
+// playwright.config.js (root copy)
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({

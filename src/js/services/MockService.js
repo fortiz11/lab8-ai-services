@@ -9,7 +9,9 @@ import {AiPort} from './AiPort.js';
  */
 
 export class MockService extends AiPort{
-    constructor ({reply= 'Mock_Reply', delayMs=0 }={}){
+    // Add a small default delay so test harness can observe the user bubble
+    // before the assistant reply appears. Tests rely on asynchronous behavior.
+    constructor ({reply= 'Mock_Reply', delayMs=300 }={}){
         super();
         this.reply= reply;
         this.delayMs= delayMs;
