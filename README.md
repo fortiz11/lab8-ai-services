@@ -1,5 +1,11 @@
 # Lab 8 — AI Services Chat Application
 
+## Live Demo
+✅ Deployed on Netlify:  
+https://resonant-cendol-b9dfd7.netlify.app/
+
+---
+
 ## Overview
 This lab extends the MVC chat application by adding support for AI providers. Users can chat with a built-in Eliza bot or switch to OpenAI using a provider dropdown and an API key input. The design emphasizes clean separation of concerns, a pluggable service layer for AI backends, persistent state, and tested model logic.
 
