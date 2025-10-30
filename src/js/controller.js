@@ -16,6 +16,7 @@ export class ChatController {
     this.service = createService(this.provider, { openaiKey:
       localStorage.getItem('openaiKey'), 
     });
+    
 
     // Bind handlers to maintain correct 'this' context when passed as callbacks
     this.handleSend = this.handleSend.bind(this);
@@ -30,6 +31,13 @@ export class ChatController {
 
     // Initialize the app by loading stored messages
     this.model.load();
+  }
+
+    setProvider(name){
+      this.provider = name;
+      localStorage.setItem('provider', name);
+      this.service = createService(name, { openaiKey:localStorage.getItem('openaiKey'),
+    });
   }
 
   //
@@ -85,8 +93,6 @@ export class ChatController {
 
   try {
     const reply = await this.service.generate([{role: 'user', content: text}]);
-    
-
 
     this.model.createMessage(reply, false);
 

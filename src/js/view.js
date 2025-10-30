@@ -175,6 +175,16 @@ export class ChatView {
     return window.prompt(t, d);
   }
 
+  _assistantName() {
+    const p = (localStorage.getItem("provider") || "eliza").toLowerCase();
+    const map = {
+      openai: "ChatGPT",
+      gemini: "Gemini",
+      eliza: "Eliza",
+      mock: "Mock AI",
+    };
+    return map[p] || p;
+  }
 
   //internal helper that creates and appends a single chat message element
   _appendMessage(msg) {
@@ -186,7 +196,9 @@ export class ChatView {
     wrapper.classList.add(msg.isUser ? "user" : "message-bot");
 
     li.classList.toggle("edited", !!msg.edited);
-    li.querySelector(".sender").textContent = msg.isUser ? "You" : "Eliza";
+    const senderName = msg.isUser ? "You" : this._assistantName();
+    li.querySelector(".sender").textContent = senderName;
+
     li.querySelector(".text").textContent = msg.text;
 
     const t = li.querySelector(".timestamp");
@@ -206,7 +218,7 @@ export class ChatView {
 
     this.listEl.appendChild(li);
   }
-//helper that updates interface after messages are added and removed
+  //helper that updates interface after messages are added and removed
   _afterRender(n = this.listEl.children.length) {
     this.emptyEl.style.display = n ? "none" : "block";
     this.listEl.scrollTop = this.listEl.scrollHeight;
